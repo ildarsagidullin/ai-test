@@ -1,4 +1,4 @@
-export const submissionEndpoint = "";
+export const submissionEndpoint = "https://script.google.com/macros/s/AKfycbzzEMKMiiWb3Edt7-jvir5nVu2oB0aSuZsJyeRJBer-UOsZNZ14y4Z0r_iTqQ2vbML6/exec";
 
 export const surveyQuestions = [
   {
