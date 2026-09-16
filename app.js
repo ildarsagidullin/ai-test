@@ -64,7 +64,7 @@ function button(label, className, onClick, disabled = false) {
 function progress(current, total) {
   const wrap = el("div", "progress-wrap");
   const meta = el("div", "progress-meta");
-  meta.append(el("span", "", `Р’РѕРїСЂРѕСЃ ${current} РёР· ${total}`), el("span", "", `${Math.round((current / total) * 100)}%`));
+  meta.append(el("span", "", `Вопрос ${current} из ${total}`), el("span", "", `${Math.round((current / total) * 100)}%`));
   const track = el("div", "progress-track");
   const bar = el("div", "progress-bar");
   bar.style.width = `${(current / total) * 100}%`;
@@ -87,12 +87,12 @@ function render() {
 }
 
 function renderIntro() {
-  const eyebrow = el("div", "eyebrow", "РџРµСЂСЃРѕРЅР°Р»СЊРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚");
-  const title = el("h1", "", "РљР°РєРѕР№ Сѓ С‚РµР±СЏ СѓСЂРѕРІРµРЅСЊ РІР»Р°РґРµРЅРёСЏ РР?");
-  const lead = el("p", "lead", "РљРѕСЂРѕС‚РєРёР№ С‚РµСЃС‚ РїРѕРєР°Р¶РµС‚ С‚РІРѕР№ СЂРµР°Р»СЊРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ вЂ” РЅРµ С‚РѕС‚, РєРѕС‚РѕСЂС‹Р№ С‚С‹ СЃРµР±Рµ РїСЂРµРґСЃС‚Р°РІР»СЏРµС€СЊ, Р° С‚РѕС‚, С‡С‚Рѕ РІРёРґРЅРѕ РїРѕ РїСЂР°РєС‚РёРєРµ. Р’ РєРѕРЅС†Рµ С‚С‹ РїРѕР»СѓС‡РёС€СЊ РєРѕРЅРєСЂРµС‚РЅС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С€Р°Рі РґР»СЏ СЂР°Р·РІРёС‚РёСЏ.");
+  const eyebrow = el("div", "eyebrow", "Персональный результат");
+  const title = el("h1", "", "Какой у тебя уровень владения ИИ?");
+  const lead = el("p", "lead", "Короткий тест покажет твой реальный уровень — не тот, который ты себе представляешь, а тот, что видно по практике. В конце ты получишь конкретный следующий шаг для развития.");
   const meta = el("div", "start-meta");
-  meta.append(el("span", "pill", "2вЂ“3 РјРёРЅСѓС‚С‹"), el("span", "pill", "12 РІРѕРїСЂРѕСЃРѕРІ"), el("span", "pill", "Р РµР·СѓР»СЊС‚Р°С‚ СЃСЂР°Р·Сѓ"));
-  const start = button("РќР°С‡Р°С‚СЊ С‚РµСЃС‚ в†’", "btn-primary btn-large", () => {
+  meta.append(el("span", "pill", "2–3 минуты"), el("span", "pill", "12 вопросов"), el("span", "pill", "Результат сразу"));
+  const start = button("Начать тест →", "btn-primary btn-large", () => {
     state.screen = "question";
     state.index = 0;
     saveDraft();
@@ -160,10 +160,10 @@ function renderOptions(question) {
 
 function renderQuestionActions(question) {
   const actions = el("div", "actions");
-  actions.append(button("в†ђ РќР°Р·Р°Рґ", "btn-secondary", goBack));
-  actions.append(button("Р”Р°Р»РµРµ в†’", "btn-primary", () => {
+  actions.append(button("← Назад", "btn-secondary", goBack));
+  actions.append(button("Далее →", "btn-primary", () => {
     if (!isAnswered(question, state.answers[question.id])) {
-      state.error = question.type === "textarea" ? "РќР°РїРёС€Рё С…РѕС‚СЏ Р±С‹ РєРѕСЂРѕС‚РєРёР№ РѕС‚РІРµС‚." : "Р’С‹Р±РµСЂРё С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ РІР°СЂРёР°РЅС‚.";
+      state.error = question.type === "textarea" ? "Напиши хотя бы короткий ответ." : "Выбери хотя бы один вариант.";
       return render();
     }
     state.error = "";
@@ -213,11 +213,11 @@ function contactField(labelText, name, placeholder, autocomplete) {
 
 function renderContact() {
   app.append(progress(surveyQuestions.length + 1, surveyQuestions.length + 1));
-  const heading = el("h2", "", "РљСѓРґР° РѕС‚РїСЂР°РІРёС‚СЊ Р±РѕРЅСѓСЃ Рё СЂРµР·СѓР»СЊС‚Р°С‚С‹?");
-  const lead = el("p", "lead", "РћСЃС‚Р°РІСЊ РёРјСЏ Рё Telegram. РЇ РёР·СѓС‡Сѓ РѕС‚РІРµС‚С‹ Рё СЃРјРѕРіСѓ СЃРІСЏР·Р°С‚СЊСЃСЏ СЃ С‚РѕР±РѕР№ Р»РёС‡РЅРѕ.");
+  const heading = el("h2", "", "Куда отправить бонус и результаты?");
+  const lead = el("p", "lead", "Оставь имя и Telegram. Я изучу ответы и смогу связаться с тобой лично.");
   app.append(heading, lead);
-  app.append(contactField("РљР°Рє С‚РµР±СЏ Р·РѕРІСѓС‚?", "name", "РќР°РїСЂРёРјРµСЂ, РР»СЊРґР°СЂ", "name"));
-  app.append(contactField("РўРІРѕР№ Telegram", "telegram", "@username РёР»Рё t.me/username", "username"));
+  app.append(contactField("Как тебя зовут?", "name", "Например, Ильдар", "name"));
+  app.append(contactField("Твой Telegram", "telegram", "@username или t.me/username", "username"));
 
   const consent = el("label", "consent");
   const checkbox = el("input");
@@ -228,22 +228,22 @@ function renderContact() {
     state.error = "";
     saveDraft();
   });
-  consent.append(checkbox, el("span", "", "РЇ СЃРѕРіР»Р°СЃРµРЅ РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РјРѕРёС… РѕС‚РІРµС‚РѕРІ Рё РЅР° СЃРІСЏР·СЊ СЃРѕ РјРЅРѕР№ РІ Telegram РїРѕ РїРѕРІРѕРґСѓ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РёСЃСЃР»РµРґРѕРІР°РЅРёСЏ Рё Р±РѕРЅСѓСЃРѕРІ."));
+  consent.append(checkbox, el("span", "", "Я согласен на обработку моих ответов и на связь со мной в Telegram по поводу результатов исследования и бонусов."));
   app.append(consent);
 
   const error = el("div", "error-message", state.error);
   error.setAttribute("role", "alert");
   const actions = el("div", "actions");
-  actions.append(button("в†ђ РќР°Р·Р°Рґ", "btn-secondary", goBack));
-  actions.append(button(state.submitting ? "РћС‚РїСЂР°РІР»СЏРµРјвЂ¦" : "РџРѕР»СѓС‡РёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ в†’", "btn-primary", submitSurvey, state.submitting));
+  actions.append(button("← Назад", "btn-secondary", goBack));
+  actions.append(button(state.submitting ? "Отправляем…" : "Получить результат →", "btn-primary", submitSurvey, state.submitting));
   app.append(error, actions);
   requestAnimationFrame(() => heading.focus({ preventScroll: true }));
 }
 
 function validateContact() {
-  if (state.contact.name.trim().length < 2) return "РЈРєР°Р¶Рё РёРјСЏ вЂ” С…РѕС‚СЏ Р±С‹ РґРІР° СЃРёРјРІРѕР»Р°.";
-  if (!normalizeTelegram(state.contact.telegram)) return "РџСЂРѕРІРµСЂСЊ Telegram: РЅСѓР¶РµРЅ username РёР· 5вЂ“32 Р»Р°С‚РёРЅСЃРєРёС… Р±СѓРєРІ, С†РёС„СЂ РёР»Рё Р·РЅР°РєРѕРІ РїРѕРґС‡С‘СЂРєРёРІР°РЅРёСЏ.";
-  if (!state.contact.consent) return "РќСѓР¶РЅРѕ РїРѕРґС‚РІРµСЂРґРёС‚СЊ СЃРѕРіР»Р°СЃРёРµ, С‡С‚РѕР±С‹ РјС‹ РјРѕРіР»Рё СЃРІСЏР·Р°С‚СЊСЃСЏ СЃ С‚РѕР±РѕР№.";
+  if (state.contact.name.trim().length < 2) return "Укажи имя — хотя бы два символа.";
+  if (!normalizeTelegram(state.contact.telegram)) return "Проверь Telegram: нужен username из 5–32 латинских букв, цифр или знаков подчёркивания.";
+  if (!state.contact.consent) return "Нужно подтвердить согласие, чтобы мы могли связаться с тобой.";
   return "";
 }
 
@@ -263,7 +263,7 @@ async function submitSurvey() {
   const demoMode = new URLSearchParams(location.search).get("demo") === "1";
 
   if (!submissionEndpoint && !demoMode) {
-    state.error = "РЎР±РѕСЂ РѕС‚РІРµС‚РѕРІ РµС‰С‘ РЅР°СЃС‚СЂР°РёРІР°РµС‚СЃСЏ. РџРѕРїСЂРѕР±СѓР№ РїСЂРѕР№С‚Рё С‚РµСЃС‚ РЅРµРјРЅРѕРіРѕ РїРѕР·Р¶Рµ.";
+    state.error = "Сбор ответов ещё настраивается. Попробуй пройти тест немного позже.";
     return render();
   }
 
@@ -289,7 +289,7 @@ async function submitSurvey() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   } catch {
     state.submitting = false;
-    state.error = "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїСЂР°РІРёС‚СЊ РѕС‚РІРµС‚С‹. РџСЂРѕРІРµСЂСЊ РёРЅС‚РµСЂРЅРµС‚ вЂ” РІСЃС‘ Р·Р°РїРѕР»РЅРµРЅРЅРѕРµ СЃРѕС…СЂР°РЅРµРЅРѕ, РјРѕР¶РЅРѕ РїРѕРїСЂРѕР±РѕРІР°С‚СЊ РµС‰С‘ СЂР°Р·.";
+    state.error = "Не удалось отправить ответы. Проверь интернет — всё заполненное сохранено, можно попробовать ещё раз.";
     saveDraft();
     render();
   }
@@ -297,19 +297,19 @@ async function submitSurvey() {
 
 function renderResult(stored, alreadyCompleted = false) {
   const level = typeof stored.level === "object" ? stored.level : getLevel(Number(stored.score));
-  app.append(el("div", "eyebrow", alreadyCompleted ? "РўРµСЃС‚ СѓР¶Рµ РїСЂРѕР№РґРµРЅ" : "РўРІРѕР№ СЂРµР·СѓР»СЊС‚Р°С‚"));
+  app.append(el("div", "eyebrow", alreadyCompleted ? "Тест уже пройден" : "Твой результат"));
   app.append(el("h1", "result-title", level.name));
   app.append(el("p", "lead", level.summary));
 
   const score = el("div", "result-score");
   score.append(el("div", "score-number", `${stored.score}/14`));
   const scoreCopy = el("div", "score-copy");
-  scoreCopy.append(el("strong", "", "Р РµР·СѓР»СЊС‚Р°С‚ РѕСЃРЅРѕРІР°РЅ РЅР° РїСЂР°РєС‚РёРєРµ"), el("p", "", "РњС‹ СѓС‡Р»Рё С‡Р°СЃС‚РѕС‚Сѓ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ, РЅР°Р±РѕСЂ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ, СЂРµР°Р»СЊРЅС‹Рµ Р·Р°РґР°С‡Рё Рё С‚РІРѕР№ РѕРїС‹С‚ СЃРѕР·РґР°РЅРёСЏ СЂРµС€РµРЅРёР№."));
+  scoreCopy.append(el("strong", "", "Результат основан на практике"), el("p", "", "Мы учли частоту использования, набор инструментов, реальные задачи и твой опыт создания решений."));
   score.append(scoreCopy);
 
   const recommendation = el("div", "recommendation");
-  recommendation.append(el("h3", "", "Р§С‚Рѕ РїРѕРґС‚СЏРЅСѓС‚СЊ РІ РїРµСЂРІСѓСЋ РѕС‡РµСЂРµРґСЊ"), el("p", "", stored.recommendation));
-  app.append(score, recommendation, el("p", "thank-you", "РЎРїР°СЃРёР±Рѕ Р·Р° РѕС‚РІРµС‚С‹! РЇ РёР·СѓС‡Сѓ РёС… Рё СЃРІСЏР¶СѓСЃСЊ СЃ С‚РѕР±РѕР№ РІ Telegram, С‡С‚РѕР±С‹ РїРµСЂРµРґР°С‚СЊ Р±РѕРЅСѓСЃ."));
+  recommendation.append(el("h3", "", "Что подтянуть в первую очередь"), el("p", "", stored.recommendation));
+  app.append(score, recommendation, el("p", "thank-you", "Спасибо за ответы! Я изучу их и свяжусь с тобой в Telegram, чтобы передать бонус."));
 }
 
 render();
