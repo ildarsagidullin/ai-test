@@ -66,12 +66,12 @@ export function getLevel(score) {
 
 export function getDynamicQuestion(answers) {
   const goalQuestion = getQuestion("goal");
-  return getOption(goalQuestion, answers.goal)?.prompt ?? "Р§С‚Рѕ С‚С‹ СѓР¶Рµ РїСЂРѕР±РѕРІР°Р» РґРµР»Р°С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РР?";
+  return getOption(goalQuestion, answers.goal)?.prompt ?? "Что ты уже пробовал делать с помощью ИИ?";
 }
 
 export function getRecommendation(answers, level) {
   const goalQuestion = getQuestion("goal");
-  const goalAction = getOption(goalQuestion, answers.goal)?.action ?? "Р’С‹Р±РµСЂРё РѕРґРёРЅ РєРѕРЅРєСЂРµС‚РЅС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С€Р°Рі Рё РІС‹РїРѕР»РЅРё РµРіРѕ РЅР° СЌС‚РѕР№ РЅРµРґРµР»Рµ.";
+  const goalAction = getOption(goalQuestion, answers.goal)?.action ?? "Выбери один конкретный следующий шаг и выполни его на этой неделе.";
   return `${level.next} ${goalAction}`;
 }
 
@@ -85,7 +85,7 @@ export function createSubmissionPayload(answers, contact, submissionId) {
     dynamicQuestion: getDynamicQuestion(answers),
     name: contact.name.trim(),
     telegram: normalizeTelegram(contact.telegram),
-    consent: contact.consent ? "Р”Р°" : "РќРµС‚",
+    consent: contact.consent ? "Да" : "Нет",
     score: String(scoring.total),
     scoreFrequency: String(scoring.parts.frequency),
     scoreTools: String(scoring.parts.tools),
