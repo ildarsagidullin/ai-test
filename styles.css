@@ -307,15 +307,19 @@ h2 {
 
 .score-number {
   display: grid;
-  width: 76px;
-  height: 76px;
+  width: 88px;
+  height: 88px;
   place-items: center;
+  flex: 0 0 auto;
   border-radius: 50%;
   color: white;
   background: var(--accent);
   font-family: "Unbounded", sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .score-copy strong { display: block; margin-bottom: 5px; font-size: 16px; }
@@ -361,7 +365,7 @@ h2 {
   .actions { position: sticky; bottom: 8px; padding: 10px 0 2px; background: linear-gradient(transparent, rgba(255,255,255,.98) 25%); }
   .btn { min-height: 50px; padding-inline: 18px; }
   .result-score { grid-template-columns: 1fr; }
-  .score-number { width: 64px; height: 64px; }
+  .score-number { justify-self: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
