@@ -1,4 +1,4 @@
-import { levelDefinitions, surveyQuestions } from "./survey-config.js";
+import { levelDefinitions, surveyQuestions } from "./survey-config.js?v=3";
 
 export function optionValue(option) {
   return typeof option === "string" ? option : option.value ?? option.label;
