@@ -1,0 +1,10 @@
+{
+  "name": "ai-custdev-survey",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "serve": "npx --yes serve ."
+  }
+}
+
