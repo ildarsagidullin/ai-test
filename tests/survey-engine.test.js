@@ -18,7 +18,7 @@ test("normalizes supported Telegram formats", () => {
 test("rejects invalid Telegram usernames", () => {
   assert.equal(normalizeTelegram("abc"), null);
   assert.equal(normalizeTelegram("12345"), null);
-  assert.equal(normalizeTelegram("РёРјСЏРїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"), null);
+  assert.equal(normalizeTelegram("имяпользователя"), null);
 });
 
 test("exclusive multiple option replaces other choices", () => {
@@ -40,19 +40,19 @@ test("calculates lower and upper score boundaries", () => {
 });
 
 test("maps all score thresholds to levels", () => {
-  assert.equal(getLevel(0).name, "РќРѕРІРёС‡РѕРє");
-  assert.equal(getLevel(2).name, "РќРѕРІРёС‡РѕРє");
-  assert.equal(getLevel(3).name, "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ");
-  assert.equal(getLevel(6).name, "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ");
-  assert.equal(getLevel(7).name, "РџСЂР°РєС‚РёРє");
-  assert.equal(getLevel(10).name, "РџСЂР°РєС‚РёРє");
-  assert.equal(getLevel(11).name, "РЎРѕР·РґР°С‚РµР»СЊ");
-  assert.equal(getLevel(14).name, "РЎРѕР·РґР°С‚РµР»СЊ");
+  assert.equal(getLevel(0).name, "Новичок");
+  assert.equal(getLevel(2).name, "Новичок");
+  assert.equal(getLevel(3).name, "Пользователь");
+  assert.equal(getLevel(6).name, "Пользователь");
+  assert.equal(getLevel(7).name, "Практик");
+  assert.equal(getLevel(10).name, "Практик");
+  assert.equal(getLevel(11).name, "Создатель");
+  assert.equal(getLevel(14).name, "Создатель");
 });
 
 test("returns the goal-specific dynamic question", () => {
-  assert.match(getDynamicQuestion({ goal: "earn" }), /СѓРІРµР»РёС‡РёС‚СЊ СЃРІРѕР№ Р·Р°СЂР°Р±РѕС‚РѕРє/);
-  assert.match(getDynamicQuestion({ goal: "business" }), /РїСЂРѕС†РµСЃСЃС‹ РІ СЃРІРѕС‘Рј Р±РёР·РЅРµСЃРµ/);
-  assert.match(getDynamicQuestion({ goal: "freelance" }), /РїРµСЂРµР№С‚Рё РЅР° С„СЂРёР»Р°РЅСЃ/);
+  assert.match(getDynamicQuestion({ goal: "earn" }), /увеличить свой заработок/);
+  assert.match(getDynamicQuestion({ goal: "business" }), /процессы в своём бизнесе/);
+  assert.match(getDynamicQuestion({ goal: "freelance" }), /перейти на фриланс/);
 });
 
