@@ -1,4 +1,4 @@
-import { submissionEndpoint, surveyQuestions } from "./survey-config.js";
+import { submissionEndpoint, surveyQuestions } from "./survey-config.js?v=3";
 import {
   calculateScore,
   createSubmissionPayload,
@@ -11,7 +11,7 @@ import {
   optionLabel,
   optionValue,
   toggleMultiple
-} from "./survey-engine.js";
+} from "./survey-engine.js?v=3";
 
 const DRAFT_KEY = "ai-survey-draft-v1";
 const COMPLETE_KEY = "ai-survey-complete-v1";
