@@ -1,38 +1,38 @@
 /**
- * Р‘СЌРєРµРЅРґ РѕРїСЂРѕСЃР° РґР»СЏ Google Apps Script.
- * 1. РЎРѕР·РґР°Р№С‚Рµ РЅРѕРІС‹Р№ РїСЂРѕРµРєС‚ РЅР° script.google.com.
- * 2. Р’СЃС‚Р°РІСЊС‚Рµ СЌС‚РѕС‚ С„Р°Р№Р» РІРјРµСЃС‚Рѕ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ РєРѕРґР°.
- * 3. Р—Р°РїСѓСЃС‚РёС‚Рµ setupSurveyBackend РѕРґРёРЅ СЂР°Р· Рё СЂР°Р·СЂРµС€РёС‚Рµ РґРѕСЃС‚СѓРї.
- * 4. Р Р°Р·РІРµСЂРЅРёС‚Рµ РїСЂРѕРµРєС‚ РєР°Рє РІРµР±-РїСЂРёР»РѕР¶РµРЅРёРµ: РІС‹РїРѕР»РЅСЏС‚СЊ РѕС‚ РІР°С€РµРіРѕ РёРјРµРЅРё,
- *    РґРѕСЃС‚СѓРї вЂ” РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј.
+ * Бэкенд опроса для Google Apps Script.
+ * 1. Создайте новый проект на script.google.com.
+ * 2. Вставьте этот файл вместо стандартного кода.
+ * 3. Запустите setupSurveyBackend один раз и разрешите доступ.
+ * 4. Разверните проект как веб-приложение: выполнять от вашего имени,
+ *    доступ — всем пользователям.
  */
 
 const SURVEY_FIELDS = [
-  ["submittedAt", "Р”Р°С‚Р° Рё РІСЂРµРјСЏ"],
-  ["submissionId", "ID РѕС‚РїСЂР°РІРєРё"],
-  ["age", "Р’РѕР·СЂР°СЃС‚"],
-  ["frequency", "Р§Р°СЃС‚РѕС‚Р° РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ"],
-  ["employment", "Р—Р°РЅСЏС‚РѕСЃС‚СЊ"],
-  ["income", "Р”РѕС…РѕРґ"],
-  ["tools", "РРЅСЃС‚СЂСѓРјРµРЅС‚С‹"],
-  ["uses", "Р—Р°РґР°С‡Рё РґР»СЏ РР"],
-  ["experience", "РџСЂР°РєС‚РёС‡РµСЃРєРёР№ РѕРїС‹С‚"],
-  ["paidSubscription", "РџР»Р°С‚РЅР°СЏ РїРѕРґРїРёСЃРєР°"],
-  ["goal", "Р“Р»Р°РІРЅР°СЏ С†РµР»СЊ"],
-  ["dynamicQuestion", "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂРѕРІР°РЅРЅС‹Р№ РІРѕРїСЂРѕСЃ"],
-  ["goalAction", "Р§С‚Рѕ СѓР¶Рµ РїСЂРѕР±РѕРІР°Р»"],
-  ["weeklyTime", "Р’СЂРµРјСЏ РІ РЅРµРґРµР»СЋ"],
-  ["barriers", "Р‘Р°СЂСЊРµСЂС‹"],
-  ["name", "РРјСЏ"],
+  ["submittedAt", "Дата и время"],
+  ["submissionId", "ID отправки"],
+  ["age", "Возраст"],
+  ["frequency", "Частота использования"],
+  ["employment", "Занятость"],
+  ["income", "Доход"],
+  ["tools", "Инструменты"],
+  ["uses", "Задачи для ИИ"],
+  ["experience", "Практический опыт"],
+  ["paidSubscription", "Платная подписка"],
+  ["goal", "Главная цель"],
+  ["dynamicQuestion", "Персонализированный вопрос"],
+  ["goalAction", "Что уже пробовал"],
+  ["weeklyTime", "Время в неделю"],
+  ["barriers", "Барьеры"],
+  ["name", "Имя"],
   ["telegram", "Telegram"],
-  ["consent", "РЎРѕРіР»Р°СЃРёРµ"],
-  ["score", "РћР±С‰РёР№ Р±Р°Р»Р»"],
-  ["scoreFrequency", "Р‘Р°Р»Р»С‹: С‡Р°СЃС‚РѕС‚Р°"],
-  ["scoreTools", "Р‘Р°Р»Р»С‹: РёРЅСЃС‚СЂСѓРјРµРЅС‚С‹"],
-  ["scoreUses", "Р‘Р°Р»Р»С‹: Р·Р°РґР°С‡Рё"],
-  ["scoreExperience", "Р‘Р°Р»Р»С‹: РѕРїС‹С‚"],
-  ["level", "РЈСЂРѕРІРµРЅСЊ"],
-  ["recommendation", "Р РµРєРѕРјРµРЅРґР°С†РёСЏ"]
+  ["consent", "Согласие"],
+  ["score", "Общий балл"],
+  ["scoreFrequency", "Баллы: частота"],
+  ["scoreTools", "Баллы: инструменты"],
+  ["scoreUses", "Баллы: задачи"],
+  ["scoreExperience", "Баллы: опыт"],
+  ["level", "Уровень"],
+  ["recommendation", "Рекомендация"]
 ];
 
 function setupSurveyBackend() {
@@ -41,24 +41,24 @@ function setupSurveyBackend() {
   if (existingFormId) {
     const existingForm = FormApp.openById(existingFormId);
     const existingSheetId = properties.getProperty("SURVEY_SHEET_ID");
-    console.log("Р¤РѕСЂРјР° СѓР¶Рµ СЃРѕР·РґР°РЅР°: " + existingForm.getEditUrl());
-    console.log("РўР°Р±Р»РёС†Р°: https://docs.google.com/spreadsheets/d/" + existingSheetId + "/edit");
+    console.log("Форма уже создана: " + existingForm.getEditUrl());
+    console.log("Таблица: https://docs.google.com/spreadsheets/d/" + existingSheetId + "/edit");
     return;
   }
 
-  const spreadsheet = SpreadsheetApp.create("РћС‚РІРµС‚С‹ вЂ” С‚РµСЃС‚ СѓСЂРѕРІРЅСЏ РІР»Р°РґРµРЅРёСЏ РР");
-  const form = FormApp.create("РўРµСЃС‚ СѓСЂРѕРІРЅСЏ РІР»Р°РґРµРЅРёСЏ РР");
-  form.setDescription("РЎР»СѓР¶РµР±РЅР°СЏ С„РѕСЂРјР° РґР»СЏ РїСЂРёС‘РјР° РѕС‚РІРµС‚РѕРІ СЃ СЃР°Р№С‚Р°. РќРµ СѓРґР°Р»СЏР№С‚Рµ Рё РЅРµ РїРµСЂРµРёРјРµРЅРѕРІС‹РІР°Р№С‚Рµ РїРѕР»СЏ.");
+  const spreadsheet = SpreadsheetApp.create("Ответы — тест уровня владения ИИ");
+  const form = FormApp.create("Тест уровня владения ИИ");
+  form.setDescription("Служебная форма для приёма ответов с сайта. Не удаляйте и не переименовывайте поля.");
   form.setDestination(FormApp.DestinationType.SPREADSHEET, spreadsheet.getId());
 
   SURVEY_FIELDS.forEach(function(field) {
-    form.addParagraphTextItem().setTitle(field[0] + " вЂ” " + field[1]).setRequired(false);
+    form.addParagraphTextItem().setTitle(field[0] + " — " + field[1]).setRequired(false);
   });
 
   properties.setProperty("SURVEY_FORM_ID", form.getId());
   properties.setProperty("SURVEY_SHEET_ID", spreadsheet.getId());
-  console.log("Р¤РѕСЂРјР°: " + form.getEditUrl());
-  console.log("РўР°Р±Р»РёС†Р°: " + spreadsheet.getUrl());
+  console.log("Форма: " + form.getEditUrl());
+  console.log("Таблица: " + spreadsheet.getUrl());
 }
 
 function doPost(event) {
@@ -67,12 +67,12 @@ function doPost(event) {
     validateSubmission_(data);
 
     const formId = PropertiesService.getScriptProperties().getProperty("SURVEY_FORM_ID");
-    if (!formId) throw new Error("РЎРЅР°С‡Р°Р»Р° Р·Р°РїСѓСЃС‚РёС‚Рµ setupSurveyBackend");
+    if (!formId) throw new Error("Сначала запустите setupSurveyBackend");
 
     const form = FormApp.openById(formId);
     const itemByKey = {};
     form.getItems(FormApp.ItemType.PARAGRAPH_TEXT).forEach(function(item) {
-      const key = item.getTitle().split(" вЂ” ")[0];
+      const key = item.getTitle().split(" — ")[0];
       itemByKey[key] = item.asParagraphTextItem();
     });
 
@@ -94,10 +94,10 @@ function doPost(event) {
 function validateSubmission_(data) {
   const required = ["submissionId", "name", "telegram", "consent", "level", "score"];
   required.forEach(function(key) {
-    if (!String(data[key] || "").trim()) throw new Error("РџСЂРѕРїСѓС‰РµРЅРѕ РїРѕР»Рµ: " + key);
+    if (!String(data[key] || "").trim()) throw new Error("Пропущено поле: " + key);
   });
-  if (!/^@[A-Za-z][A-Za-z0-9_]{4,31}$/.test(data.telegram)) throw new Error("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ Telegram");
-  if (data.consent !== "Р”Р°") throw new Error("РќРµС‚ СЃРѕРіР»Р°СЃРёСЏ РЅР° СЃРІСЏР·СЊ");
+  if (!/^@[A-Za-z][A-Za-z0-9_]{4,31}$/.test(data.telegram)) throw new Error("Некорректный Telegram");
+  if (data.consent !== "Да") throw new Error("Нет согласия на связь");
 }
 
 function jsonResponse_(value) {
